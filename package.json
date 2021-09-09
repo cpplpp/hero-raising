@@ -2,12 +2,16 @@
   "name": "hero-raising",
   "version": "0.0.0",
   "private": true,
-  "scripts": {},
+  "scripts": {
+    "create-schema": "ts-node src/domain/create-schema.ts"
+  },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "^4.17.1",
-    "morgan": "~1.9.1"
+    "morgan": "~1.9.1",
+    "sqlite3": "^5.0.2",
+    "uuid": "^3.4.0"
   },
   "main": "app.js",
   "keywords": [],

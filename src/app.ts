@@ -11,6 +11,6 @@ app.get('/', function (req, res) {
 
 app.use('/hero', getHeroRoutes());
 
-app.listen(PORT, () => {
+app.listen(parseInt(PORT), () => {
     console.log(`server listening on port ${PORT}`);
 })

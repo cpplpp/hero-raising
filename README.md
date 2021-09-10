@@ -50,6 +50,6 @@ curl localhost:5000/hero/:name/getHeroStats
 download hero image
 
 ```bash
-curl --output <PATH> localhost:5000/hero/Pipper/getHeroImage
+curl --output <PATH> localhost:5000/hero/:name/getHeroImage
 ```
 

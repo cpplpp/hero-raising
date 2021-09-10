@@ -1,5 +1,5 @@
 import express from 'express';
-import { getHeroRoutes } from "./routes/hero.route";
+import {getHeroRoutes} from "./routes/hero.route";
 
 const app = express();
 

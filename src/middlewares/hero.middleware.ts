@@ -1,4 +1,7 @@
 import express from 'express';
+import sqlite3 from 'sqlite3';
+
+
 
 class HeroMiddleware {
     async validateHeroFieldsForCreation(
@@ -46,12 +49,29 @@ class HeroMiddleware {
         }
     }
 
-    async validateHeroImage(
-        req: express.Request,
-        res: express.Response,
-        next: express.NextFunction
-    ) {
-
+    validateHeroImage(db) {
+        return async function (
+            req: express.Request,
+            res: express.Response,
+            next: express.NextFunction
+        ) {
+            db.get(
+                `select * from hero where name = '${req.params.name}'`, (error, row) => {
+                    if (error) {
+                        res.status(400).send({
+                            error: `Something went wrong! ${error}`
+                        });
+                        return console.error(error);
+                    }
+                    if (row) {
+                        next()
+                    } else {
+                        res.status(400).send({
+                            error: `No Hero with name ${req.params.name}`
+                        });
+                    }
+                });
+        }
     }
 }
 

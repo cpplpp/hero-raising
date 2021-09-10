@@ -35,7 +35,7 @@ set hero image
 curl -X POST -F 'heroImage=@<PATH>' localhost:5000/hero/:name/uploadHeroImage       
 ```
 
-get all geroes
+get all heroes
 
 ```bash
 curl localhost:5000/hero/getAllHeroes

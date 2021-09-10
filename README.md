@@ -1,6 +1,6 @@
 # Hero Raising
 
-Place where you can raise you Hero
+Place where you can raise your Hero
 
 ## Instalation
 

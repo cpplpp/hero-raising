@@ -1,4 +1,5 @@
 import path from 'path';
+import fs from 'fs';
 import express from 'express';
 import sqlite3 from 'sqlite3';
 import multer from 'multer';
@@ -31,10 +32,9 @@ export const getHeroRoutes = () => {
     router.use(upload.single('heroImage'));
     router.route('/:name/getHeroStats').get(getStats);
     router.route('/getAllHeroes').get(getAll);
-    router.route('/:name/getHeroImage').get(getImage);
+    router.route('/:name/getHeroImage').all(HeroMiddleware.validateHeroImage(db)).get(getImage);
     router.route('/createHero').all(HeroMiddleware.validateHeroFieldsForCreation, HeroMiddleware.validateHeroFieldsTypes).post(createHero);
     router.route('/:name/setHeroStats').all(HeroMiddleware.validateHeroFieldsForUpdating, HeroMiddleware.validateHeroFieldsTypes).put(setStats);
-    // router.route('/:name/uploadHeroImage').all(HeroMiddleware.validateHeroImage).post(upload.single('heroImage'), setImage);
     return router;
 }
 
@@ -74,9 +74,16 @@ const getAll = (req: express.Request, res: express.Response) => {
  * Get image of selected hero
  */
 const getImage = (req: express.Request, res: express.Response) => {
-    res
-        .set('Content-Type', 'image/png')
-        .sendFile(`${imageDir}/${req.params.name}`);
+    const imgPath = `${imageDir}/${req.params.name}`
+    if (fs.existsSync(imgPath)) {
+        res
+            .set('Content-Type', 'image/png')
+            .sendFile(imgPath);
+    } else {
+        res.send({
+            error: `No image for Hero ${req.params.name}`
+        })
+    }
 }
 
 /**

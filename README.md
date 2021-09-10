@@ -2,7 +2,7 @@
 
 Place where you can raise your Hero
 
-## Instalation
+## Installation
 
 install dependencies
 
